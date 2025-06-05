@@ -27,7 +27,7 @@ pip install -r requirements.txt
 ```bash
 API_KEY = YOUR_API_KEY  
 ```  
-5. run streamlit
+7. run streamlit
 ```bash
 streamlit run app.py
 ```
