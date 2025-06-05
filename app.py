@@ -2,12 +2,8 @@ import streamlit as st
 from get_youtube_api import getYoutubeData 
 from train_sentiment import TrainSentiment
 import matplotlib.pyplot as plt
-from dotenv import load_dotenv
-import os
-load_dotenv()  # Load .env file
-API_KEY = os.getenv("API_KEY")
 
-
+API_KEY = st.secrets["API_KEY"]  
 def bar_chart(df):
     sentiment_counts = df["sentiment"].value_counts().reset_index()
     sentiment_counts.columns = ['sentiment', 'count']
