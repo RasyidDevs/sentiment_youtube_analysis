@@ -5,9 +5,9 @@ import html
 from bs4 import BeautifulSoup
 
 class getYoutubeData:
-    def __init__(self, youtube_url=None):
+    def __init__(self, youtube_url=None, API_KEY=None):
         self.youtube_url = youtube_url
-
+        self.__API_KEY = API_KEY
     def get_video_id(self):
         patterns = [
             r"(?:https?://)?(?:www\.)?youtube\.com/watch\?v=([^&]+)",
@@ -32,7 +32,7 @@ class getYoutubeData:
         params = {
             "part": "snippet",
             "videoId": self.get_video_id(),
-            "key": "AIzaSyC6cHq4XRZzF-4sJTlO7Ndh3R1s1pJOEJ0",
+            "key": self.__API_KEY,  
             "maxResults": 100
         }
 
@@ -68,17 +68,19 @@ class getYoutubeData:
         else:
             return pd.DataFrame(columns=["text", "author", "publishedAt", "likeCount"])
     def get_video_stats(self):
+        """
+        Retrieves video statistics and metadata from the YouTube Data API.
+        """
         video_id = self.get_video_id()
         base_url = "https://www.googleapis.com/youtube/v3/videos"
         params = {
             "part": "snippet",
             "id": video_id,
-            "key": "AIzaSyC6cHq4XRZzF-4sJTlO7Ndh3R1s1pJOEJ0"
+            "key": self.__API_KEY  # Replace with your actual API key
         }
 
         response = requests.get(base_url, params=params)
         data = response.json()
-
 
         snippet = data["items"][0]["snippet"]
 

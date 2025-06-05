@@ -4,13 +4,14 @@ nltk.download('vader_lexicon')
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import matplotlib.pyplot as plt
 class TrainSentiment:
-    def __init__(self,model= SentimentIntensityAnalyzer()):
+    def __init__(self,model= SentimentIntensityAnalyzer() , API_KEY=None, url=None):
         self.model = model
-   
-    def analyze_sentiment(self, url):
-        self.df = getYoutubeData(youtube_url=url).to_dataframe()
+        self.df = getYoutubeData(youtube_url=url, API_KEY=API_KEY).to_dataframe()
+
+    def analyze_sentiment(self):
+        df = self.df
         sentiments = []
-        for comment in self.df["text"]:
+        for comment in df["text"]:
             result = self.model.polarity_scores(comment)
             if result['compound'] >= 0.05:
                 sentiments.append("Positive")
@@ -19,11 +20,11 @@ class TrainSentiment:
             else:
                 sentiments.append("Neutral")
 
-        self.df["sentiment"] = sentiments
-        return self.df
+        df["sentiment"] = sentiments
+        return df
 
-    def show_results(self, url):
-        df = self.analyze_sentiment(url)
+    def show_results(self):
+        df = self.analyze_sentiment()
 
         positive_count = (df["sentiment"].str.lower() == "positive").sum()
         negative_count = (df["sentiment"].str.lower() == "negative").sum()
@@ -42,56 +43,3 @@ class TrainSentiment:
             "df_neutral": df_neutral,
             "df": df
         }
-    def bar_chart(self, df):
-        sentiment_counts = df["sentiment"].value_counts().reset_index()
-        sentiment_counts.columns = ['sentiment', 'count']
-
-        color_map = {
-            'Positive': 'green',
-            'Negative': 'red',
-            'Neutral': 'gray'
-        }
-
-        colors = sentiment_counts['sentiment'].map(color_map).to_list()
-        print(colors)
-        fig, ax = plt.subplots()
-
-        sentiment_counts.plot(
-            x='sentiment',
-            y='count',
-            kind='bar',
-            legend=False,
-            color=colors,
-            ax=ax
-        )
-
-        return fig
-    def pie_chart(self, df):
-        sentiment_counts = df["sentiment"].value_counts().reset_index()
-        sentiment_counts.columns = ['sentiment', 'count']
-
-        sentiment_counts['sentiment'] = sentiment_counts['sentiment'].str.capitalize()
-
-        color_map = {
-            'Positive': 'green',
-            'Negative': 'red',
-            'Neutral': 'gray'
-        }
-
-        colors = sentiment_counts['sentiment'].map(color_map).tolist()
-
-        fig, ax = plt.subplots()
-
-        sentiment_counts.set_index('sentiment')['count'].plot(
-            kind='pie',
-            autopct='%1.1f%%',
-            startangle=90,
-            colors=colors,
-            ax=ax,
-            legend=False
-        )
-
-        ax.set_ylabel('')  # hilangkan label default
-        ax.set_title("Sentiment Distribution")
-
-        return fig

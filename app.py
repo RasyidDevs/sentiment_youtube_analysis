@@ -1,10 +1,66 @@
 import streamlit as st
 from get_youtube_api import getYoutubeData 
 from train_sentiment import TrainSentiment
+import matplotlib.pyplot as plt
+
+def bar_chart(df):
+    sentiment_counts = df["sentiment"].value_counts().reset_index()
+    sentiment_counts.columns = ['sentiment', 'count']
+
+    color_map = {
+        'Positive': 'green',
+        'Negative': 'red',
+        'Neutral': 'gray'
+    }
+
+    colors = sentiment_counts['sentiment'].map(color_map).to_list()
+    print(colors)
+    fig, ax = plt.subplots()
+
+    sentiment_counts.plot(
+        x='sentiment',
+        y='count',
+        kind='bar',
+        legend=False,
+        color=colors,
+        ax=ax
+    )
+
+    return fig
+def pie_chart(df):
+    sentiment_counts = df["sentiment"].value_counts().reset_index()
+    sentiment_counts.columns = ['sentiment', 'count']
+
+    sentiment_counts['sentiment'] = sentiment_counts['sentiment'].str.capitalize()
+
+    color_map = {
+        'Positive': 'green',
+        'Negative': 'red',
+        'Neutral': 'gray'
+    }
+
+    colors = sentiment_counts['sentiment'].map(color_map).tolist()
+
+    fig, ax = plt.subplots()
+
+    sentiment_counts.set_index('sentiment')['count'].plot(
+        kind='pie',
+        autopct='%1.1f%%',
+        startangle=90,
+        colors=colors,
+        ax=ax,
+        legend=False
+    )
+
+    ax.set_ylabel('')  # hilangkan label default
+    ax.set_title("Sentiment Distribution")
+
+    return fig
+
+
 
 API_KEY = "AIzaSyC6cHq4XRZzF-4sJTlO7Ndh3R1s1pJOEJ0"
 
-tr = TrainSentiment()
 footer = """
 <style>
 .footer {
@@ -40,11 +96,12 @@ st.markdown(
     unsafe_allow_html=True
 )
 if submit and url:
-    get_youtube = getYoutubeData(url)
-    video_id = get_youtube.get_video_id()
-    if video_id:
-        with st.spinner("Loading.. this may take a while"):
-            get_data = tr.show_results(url)
+    with st.spinner("Loading.. this may take a while"):
+        tr = TrainSentiment(API_KEY=API_KEY, url=url)
+        get_youtube = getYoutubeData(youtube_url = url, API_KEY=API_KEY)
+        video_id = get_youtube.get_video_id()
+        if video_id:
+            get_data = tr.show_results()
             # Simpan di session_state
             st.session_state["df"] = get_data["df"]
             st.session_state["stat"] = get_youtube.get_video_stats()
@@ -54,11 +111,10 @@ if submit and url:
                 "Neutral": get_data["Neutral"],
                 "Total": len(get_data["df"])
             }
-        st.success("Data loaded successfully!")
-    else:
-        st.error("Invalid YouTube channel URL or no videos found.")
+            st.success("Data loaded successfully!")
+        else:
+            st.error("Invalid YouTube channel URL or no videos found.")
 
-# Tampilkan data dan grafik hanya jika data sudah ada di session_state
 if "df" in st.session_state and "summary" in st.session_state and "stat" in st.session_state:
     summary = st.session_state["summary"]
     df = st.session_state["df"]
@@ -73,15 +129,14 @@ if "df" in st.session_state and "summary" in st.session_state and "stat" in st.s
     st.write("Negative Comments:", summary["Negative"])
     st.write("Neutral Comments:", summary["Neutral"])
     st.dataframe(df)
-    # Dropdown untuk memilih jenis chart
     dropdown = st.selectbox("Select chart type:", options=["pie_chart", "bar_chart"], key="dropdown")
 
     if dropdown == "pie_chart":
         st.subheader("Pie Chart of Sentiment")
-        st.pyplot(tr.pie_chart(df)) 
+        st.pyplot(pie_chart(df)) 
     else:
         st.subheader("Bar Chart of Sentiment")
-        st.pyplot(tr.bar_chart(df))
+        st.pyplot(bar_chart(df))
 
 else:
     st.info("Please enter a YouTube channel URL and click Submit to see sentiment analysis.")
