@@ -62,28 +62,8 @@ def pie_chart(df):
 
     return fig
 
-footer = """
-<style>
-.footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: transparent;
-    color: rgba(255, 255, 255, 0.3);
-    text-align: center;
-    padding: 10px 0;
-    font-size: 14px;
-    z-index: 9999;
-}
-</style>
 
-<div class="footer">
-    © Made by rasyid bomantoro. all rights reserved.
-</div>
-"""
-st.markdown(footer, unsafe_allow_html=True)
-st.markdown(footer, unsafe_allow_html=True)
+
 # Sidebar input
 with st.sidebar:
     st.markdown(
