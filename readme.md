@@ -22,10 +22,10 @@ pip install -r requirements.txt
 4. Go to Credentials → Create Credentials → API Key  
 5. Copy the API key  
 ```
-5. Rename file .env.example -> .env
-6. Add your API Key to .env file
+5. Rename file secrets.toml.example -> .secrets.toml (you can see this file on .steamlit folder)
+6. Add your API Key to secrets.toml file
 ```bash
-API_KEY = YOUR_API_KEY  
+API_KEY = "YOUR_API_KEY " 
 ```  
 7. run streamlit
 ```bash
