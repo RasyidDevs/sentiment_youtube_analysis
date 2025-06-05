@@ -24,6 +24,9 @@ pip install -r requirements.txt
 ```
 5. Rename file .env.example -> .env
 6. Add your API Key to .env file
+```bash
+API_KEY = YOUR_API_KEY  
+```  
 5. run streamlit
 ```bash
 streamlit run app.py
