@@ -1,5 +1,9 @@
 ### Demo Video 💻  
-Link: [Youtube video](https://youtu.be/R5wiGC29Hng?si=eI7PgUgl8GQ989CP)
+Link Video: [Youtube video](https://youtu.be/R5wiGC29Hng?si=eI7PgUgl8GQ989CP)
+
+### Demo Youtube 💻 
+Demo Web: [streamlit app](https://sentiment-youtube.streamlit.app/)
+
 ## Installation
 
 1. Clone this repository  
