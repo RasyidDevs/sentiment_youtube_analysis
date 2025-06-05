@@ -4,7 +4,7 @@ Link: [Youtube video](https://youtu.be/R5wiGC29Hng?si=eI7PgUgl8GQ989CP)
 
 1. Clone this repository  
 ```bash
-git clone https://github.com/RasyidDevs/FUN_PROJECT_2_REAPYTHON1LVTXY.git
+git clone https://github.com/RasyidDevs/sentiment_youtube_analysis
 ```
 2. Go to directory project
 ```bash
