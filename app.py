@@ -2,6 +2,11 @@ import streamlit as st
 from get_youtube_api import getYoutubeData 
 from train_sentiment import TrainSentiment
 import matplotlib.pyplot as plt
+from dotenv import load_dotenv
+import os
+load_dotenv()  # Load .env file
+API_KEY = os.getenv("API_KEY")
+
 
 def bar_chart(df):
     sentiment_counts = df["sentiment"].value_counts().reset_index()
@@ -56,10 +61,6 @@ def pie_chart(df):
     ax.set_title("Sentiment Distribution")
 
     return fig
-
-
-
-API_KEY = "AIzaSyC6cHq4XRZzF-4sJTlO7Ndh3R1s1pJOEJ0"
 
 footer = """
 <style>
