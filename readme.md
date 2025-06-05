@@ -1,5 +1,5 @@
 ### Demo Video 💻  
-Link Video: [Youtube video](https://youtu.be/R5wiGC29Hng?si=eI7PgUgl8GQ989CP)
+Link Video: [Youtube video](https://youtu.be/6-oF7SJXCtw?si=Lk_d5B9Fs_sgal5h)
 
 ### Demo Youtube 💻 
 Demo Web: [streamlit app](https://sentiment-youtube.streamlit.app/)
