@@ -18,8 +18,8 @@ pip install -r requirements.txt
 ```bash
 1. Go to https://console.cloud.google.com/  
 2. Create a new project or select an existing one  
-3. Enable **YouTube Data API v3** from the API Library  
-4. Go to **Credentials** → **Create Credentials** → **API Key**  
+3. Enable YouTube Data API v3 from the API Library  
+4. Go to Credentials → Create Credentials → API Key  
 5. Copy the API key  
 ```
 5. Rename file .env.example -> .env
