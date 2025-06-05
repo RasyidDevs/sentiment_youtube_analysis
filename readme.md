@@ -4,7 +4,7 @@ Link: [Youtube video](https://youtu.be/R5wiGC29Hng?si=eI7PgUgl8GQ989CP)
 
 1. Clone this repository  
 ```bash
-git clone https://github.com/RasyidDevs/FUN_PROJECT_2_REAPYTHON1LVTXY.git
+git clone https://github.com/RasyidDevs/sentiment_youtube_analysis
 ```
 2. Go to directory project
 ```bash
@@ -14,11 +14,20 @@ cd FUN_PROJECT_2_REAPYTHON1LVTXY
 ```bash
 pip install -r requirements.txt
 ```
-4. Create  api key on this link  [https://makersuite.google.com/app/apikey](https://makersuite.google.com/app/apikey) then change code on app.py line 15
+4. Create  api key on this link  [https://console.cloud.google.com/](https://console.cloud.google.com/) 
 ```bash
-genai.configure(api_key="YOUR_GOOGLE_API_KEY") 
+1. Go to https://console.cloud.google.com/  
+2. Create a new project or select an existing one  
+3. Enable YouTube Data API v3 from the API Library  
+4. Go to Credentials → Create Credentials → API Key  
+5. Copy the API key  
 ```
-5. run streamlit
+5. Rename file .env.example -> .env
+6. Add your API Key to .env file
+```bash
+API_KEY = YOUR_API_KEY  
+```  
+7. run streamlit
 ```bash
 streamlit run app.py
 ```
