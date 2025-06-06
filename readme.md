@@ -12,7 +12,7 @@ git clone https://github.com/RasyidDevs/sentiment_youtube_analysis
 ```
 2. Go to directory project
 ```bash
-cd FUN_PROJECT_2_REAPYTHON1LVTXY
+cd sentiment_youtube_analysis
 ```
 3. install all requirement
 ```bash
